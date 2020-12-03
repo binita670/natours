@@ -31,6 +31,9 @@ app.set('views', path.join(__dirname, 'views'));
 // Access-Control-Allow-Origin
 app.use(cors());
 
+app.options('*', corse());
+// app.options('api/v1/tours/:id', corse());
+
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
 
