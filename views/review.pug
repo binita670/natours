@@ -1,0 +1,19 @@
+extends base 
+
+mixin reviewCard(review)
+    .reviews__card(style='margin-bottom:10px; width:800px;')
+        .reviews__avatar
+            img.reviews__avatar-img(src=`/img/tours/${review.tour.imageCover}`, alt=`${review.tour.name}` style='height:100px; width:100px;')
+            h6.reviews__user= review.tour.name
+        p.reviews__text Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque dignissimos sint quo commodi corrupti accusantium veniam saepe numquam.    
+        .reviews__rating
+
+            each star in [1, 2, 3, 4, 5]
+                svg.reviews__star(class=`reviews__star--${review.rating >= star ? 'active' : 'inactive'}`)
+                    use(xlink:href='/img/icons.svg#icon-star')
+
+block content
+    section.section-reviews(style="margin-top:1px;  overflow-x:hidden; clip-path:none;")
+        .reviews(style='display:flex; flex-direction:column; align-items:center; flex-wrap:wrap; justify-content:space-around; overflow-x:hidden; clip-path:none;')
+            each review in reviews
+                +reviewCard(review)
