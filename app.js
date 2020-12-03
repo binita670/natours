@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
-//const helmet = require('helmet');
+const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
@@ -19,6 +19,8 @@ const viewRouter = require('./routes/viewRoutes');
 
 const app = express();
 
+app.enable('trust-proxy');
+
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -28,7 +30,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set security HTTP headers
-//app.use(helmet());
+app.use(helmet());
 
 //Development logging
 if (process.env.NODE_ENV === 'development') {
