@@ -56,7 +56,7 @@ const sendErrorProd = (err, req, res) => {
     console.log('Error', err);
 
     // 2)Send generic message
-    res.status(500).json({
+    return res.status(500).json({
       status: 'error',
       messsage: 'Something went very wrong',
     });
@@ -88,6 +88,7 @@ module.exports = (err, req, res, next) => {
     sendErrorDev(err, req, res);
   } else if (process.env.NODE_ENV === 'production') {
     let error = { ...err };
+    error.message = err.message;
 
     if (err.name === 'CastError') error = handleCastErrorDB(err);
     if (err.code === 11000) error = handleDuplicateFieldsDB(err);
